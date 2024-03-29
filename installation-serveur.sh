@@ -75,6 +75,7 @@ installPHP()
   sudo apt-get install -y php7.4-json
   sudo apt-get install -y php7.4-xml
   sudo apt-get install -y php7.4-xdebug
+  sudo apt-get install -y php7.4-curl
   sudo service apache2 restart
 }
 
