@@ -29,6 +29,9 @@ installEssentials()
 
   # installation zip
   sudo apt-get install -y unzip
+
+  # installation de make
+  sudo apt-get install -y make
 }
 
 reinitMySQL()
