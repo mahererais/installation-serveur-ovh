@@ -66,10 +66,28 @@ configureApache()
   sudo service apache2 restart
 }
 
+configureApacheHttp2Ssl()
+{
+  # desactiver php7.4
+  sudo a2dismod php7.4
+
+  # http2 ne semble pas fonctionner avec npm_preforf, on install npm_event a la place
+  sudo a2dismod mpm_prefork
+  sudo a2enmod mpm_event
+
+  # Ensuite, assurez-vous que les modules proxy_fcgi, setenvif, et http2 sont activés :
+  sudo a2enmod proxy_fcgi setenvif
+  sudo a2enmod http2
+  sudo a2enmod ssl
+
+  # Activer la configuration de PHP-FPM :
+  sudo a2enconf php7.4-fpm
+}
+
 installPHP()
 {
   # installation php 7.4
-  sudo apt-get install -y php7.4
+  sudo apt-get install -y php7.4-fpm
   sudo apt-get install -y php7.4-common
   sudo apt-get install -y php7.4-cli
   sudo apt-get install -y php7.4-mysql
@@ -142,6 +160,7 @@ installEssentials
 
 installApache
 configureApache
+configureApacheHttp2Ssl
 
 installPHP
 configurePHP
